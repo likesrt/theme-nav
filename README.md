@@ -1,5 +1,8 @@
-# Theme nav
+# 🚀 Halo Nav 导航主题
 
-Halo 2.0 的基础主题开发模板，包含了主题的基本目录结构。
+## 介绍
 
-主题开发文档可查阅：<https://docs.halo.run/2.0.0-SNAPSHOT/developer-guide/theme/prepare>
+<p>一个优雅、现代的个人导航站解决方案，让您的网址管理更轻松、更智能！制作不易，欢迎点个免费的Star⭐</p>
+
+
+## 建议作为副主题使用
