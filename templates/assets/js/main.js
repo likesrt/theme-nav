@@ -1,5 +1,7 @@
     // 初始化页面
     document.addEventListener('DOMContentLoaded', function () {
+      // 检查用户登录状态
+      checkLoginStatus();
       // 更新欢迎消息
       updateWelcomeMessage();
 
@@ -34,6 +36,66 @@
           }
         }
       });
+    // 检查登录状态函数
+    function checkLoginStatus() {
+      const adminPageBtn = document.getElementById('adminPageBtn');
+      
+      // 检查会话存储中是否有登录状态缓存
+      const cachedLoginStatus = sessionStorage.getItem('userLoggedIn');
+      
+      if (cachedLoginStatus === 'true') {
+        // 使用缓存的登录状态
+        if (adminPageBtn) {
+          adminPageBtn.style.display = 'flex';
+          setTimeout(() => {
+            adminPageBtn.classList.add('visible');
+          }, 10);
+        }
+        return;
+      }
+      
+      // 默认隐藏管理按钮
+      if (adminPageBtn) {
+        adminPageBtn.style.display = 'none';
+        adminPageBtn.classList.remove('visible');
+      }
+      
+      fetch('/apis/api.console.halo.run/v1alpha1/themes/theme-nav/json-config', {
+        method: 'GET',
+        credentials: 'same-origin',
+        headers: {
+          'Accept': 'application/json'
+        }
+      })
+      .then(response => {
+        if (response.status === 200) {
+          // 用户已登录，保存状态到会话存储
+          sessionStorage.setItem('userLoggedIn', 'true');
+          
+          if (adminPageBtn) {
+            adminPageBtn.style.display = 'flex';
+            setTimeout(() => {
+              adminPageBtn.classList.add('visible');
+            }, 10);
+          }
+        } else {
+          // 用户未登录
+          sessionStorage.setItem('userLoggedIn', 'false');
+          
+          if (adminPageBtn) {
+            adminPageBtn.style.display = 'none';
+            adminPageBtn.classList.remove('visible');
+          }
+        }
+      })
+      .catch(error => {
+        console.error('检查登录状态时出错:', error);
+        // 出错时保持管理按钮隐藏状态
+        sessionStorage.removeItem('userLoggedIn');
+      });
+    }
+
+    // 更新当前激活的分类
 
       // 移动端菜单切换
       document.getElementById('toggleNav').addEventListener('click', function () {

@@ -711,4 +711,14 @@ a {
 a:hover {
   color: #0056b3;
 }
+/* 隐藏管理按钮 */
+#adminPageBtn {
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+  transform: translateY(10px);
+}
 
+#adminPageBtn.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
