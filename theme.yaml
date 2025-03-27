@@ -1,21 +1,21 @@
 apiVersion: theme.halo.run/v1alpha1
 kind: Theme
 metadata:
-  name: theme-starter
+  name: theme-nav
 spec:
-  displayName: Theme Starter
+  displayName: Theme Nav
   author:
-    name: Halo
-    website: "https://github.com/halo-dev"
-  description: Halo 2.0 Theme base on Thymeleaf
+    name: likesrt
+    website: "https://github.com/likesrt"
+  description: 一个优雅、现代的个人导航站主题
   logo: "https://www.halo.run/logo"
-  homepage: "https://github.com/halo-dev/theme-starter#readme"
-  repo: "https://github.com/halo-dev/theme-starter"
-  issues: "https://github.com/halo-dev/theme-starter/issues"
-  settingName: "theme-starter-setting"
-  configMapName: "theme-starter-configMap"
+  homepage: "https://github.com/likesrt/theme-nav#readme"
+  repo: "https://github.com/likesrt/theme-nav"
+  issues: "https://github.com/likesrt/theme-nav/issues"
+  settingName: "theme-nav-setting"
+  configMapName: "theme-nav-configMap"
   version: "1.0.0"
   requires: ">=2.0.0"
   license:
-    - name: "GPL-3.0"
-      url: "https://github.com/halo-dev/plugin-starter/blob/main/LICENSE"
+    - name: "MIT"
+      url: "https://github.com/likesrt/theme-nav/blob/main/LICENSE"

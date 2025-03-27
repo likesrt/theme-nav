@@ -1,18 +1,63 @@
 <!DOCTYPE html>
-<html
-  xmlns:th="https://www.thymeleaf.org"
-  th:replace="~{layout :: html(head = null,content = ~{::content})}"
->
-  <th:block th:fragment="content">
-    <ul>
-      <li th:each="post : ${posts.items}">
-        <a
-          th:href="@{${post.status.permalink}}"
-          th:text="${post.spec.title}"
-        ></a>
-      </li>
-    </ul>
-    <a th:if="${posts.hasPrevious()}" th:href="@{${posts.prevUrl}}">上一页</a>
-    <a th:if="${posts.hasNext()}" th:href="@{${posts.nextUrl}}">下一页</a>
-  </th:block>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{if .SiteTitle}}{{.SiteTitle}}{{else}}E-Nav{{end}}</title>
+
+  <!-- 引入字体图标库 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- 引入谷歌字体 -->
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+  
+
+</head>
+
+<body>
+  <!-- 主题控制按钮 -->
+  <div class="theme-controls">
+    <button class="theme-switch" id="darkModeToggle" title="切换深色/浅色模式">
+      <i class="fas fa-moon"></i>
+    </button>
+  </div>
+
+  <div class="container">
+    <header>
+      <div class="header-content">
+        <h1>{{if .SiteTitle}}{{.SiteTitle}}{{else}}E-Nav{{end}}</h1>
+        <p class="welcome-message" id="welcomeMessage">欢迎回来，祝您使用愉快！</p>
+        <p class="date-time" id="dateTime"></p>
+        <div class="search-box">
+          <i class="fas fa-search search-icon"></i>
+          <input type="text" id="searchInput" placeholder="搜索网站...">
+          <button id="searchBtn">搜索</button>
+        </div>
+      </div>
+    </header>
+
+    <!-- 分类导航菜单 -->
+    <nav class="category-nav" id="categoryNav">
+      <button class="toggle-nav" id="toggleNav">显示分类菜单 <i class="fas fa-chevron-down"></i></button>
+      <ul class="category-menu" id="categoryMenu">
+        <!-- 分类菜单项将通过JS动态生成 -->
+      </ul>
+    </nav>
+
+    <div id="bookmarkContainer">
+      <!-- 书签内容将通过JS动态生成 -->
+    </div>
+
+    <footer>
+      <p>© 2025 <a href="https://github.com/ecouus/E-Nav" target="_blank">E-Nav</a> · {{if
+        .SiteFooter}}{{.SiteFooter}}{{else}}一个简洁易用的网址导航页 · 版权所有{{end}}</p>
+    </footer>
+  </div>
+
+  <!-- 返回顶部按钮 -->
+  <button class="back-to-top" id="backToTop" title="返回顶部">
+    <i class="fas fa-arrow-up"></i>
+  </button>
+</body>
+
 </html>
