@@ -84,34 +84,37 @@
         </h2>
 
         <div class="bookmark-grid">
-          <!-- 为每个链接创建一个书签 -->
-          <a th:each="link, linkStat : ${category.links}" th:href="${link.url}" class="bookmark-item" target="_blank">
+          <!-- 筛选并显示属于当前分类的书签 -->
+          <a th:each="bookmark, bookmarkStat : ${theme.config.bookmark.bookmarks}"
+            th:if="${bookmark.category == category.name}" th:href="${bookmark.url}" class="bookmark-item"
+            target="_blank">
 
             <!-- 图标处理 -->
-            <div class="bookmark-icon"
-              th:classappend="${T(com.yourapp.utils.UrlUtils).getColorForUrl(link.url, linkStat.index)}"
-              th:data-has-user-icon="${link.icon != null && link.icon != ''}">
+            <div class="bookmark-icon" th:data-has-user-icon="${bookmark.icon != null && bookmark.icon != ''}">
 
               <!-- 图标内容处理 -->
-              <img th:if="${link.icon != null && link.icon.startsWith('http')}" th:src="${link.icon}" alt="icon"
-                class="favicon-img">
+              <img th:if="${bookmark.icon != null && bookmark.icon.startsWith('http')}" th:src="${bookmark.icon}"
+                alt="icon" class="favicon-img">
 
-              <th:block th:if="${link.icon != null && !link.icon.startsWith('http')}" th:utext="${link.icon}">
+              <th:block th:if="${bookmark.icon != null && !bookmark.icon.startsWith('http')}"
+                th:utext="${bookmark.icon}">
               </th:block>
 
-              <th:block th:if="${link.icon == null || link.icon == ''}"
-                th:text="${#strings.substring(link.name, 0, 1)}">
+              <th:block th:if="${bookmark.icon == null || bookmark.icon == ''}"
+                th:text="${#strings.substring(bookmark.name, 0, 1)}">
               </th:block>
             </div>
 
             <div class="bookmark-info">
-              <div class="bookmark-name" th:text="${link.name}"></div>
-              <div class="bookmark-desc" th:text="${link.desc != null ? link.desc : ''}"></div>
+              <div class="bookmark-name" th:text="${bookmark.name}"></div>
+              <div class="bookmark-desc" th:text="${bookmark.desc}"></div>
             </div>
           </a>
         </div>
       </div>
     </div>
+
+
 
 
     <footer id="footer" role="contentinfo">

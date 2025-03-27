@@ -12,28 +12,28 @@ spec:
           label: 站点标题
           value: "Nav"
           help: 设置站点的标题
-        - $formkit: text
-          name: description
-          label: 站点描述
-          value: "一个优雅、现代的个人导航站主题"
-          help: 设置站点的描述
-        - $formkit: radio
-          name: color_style
-          id: color_style
-          label: 默认主题色
-          help: 选择预先精心设计的配色方案，或者设置你的颜色风格。
-          value: purple
-          options:
-            - label: 因蓝紫
-              value: purple
-            - label: 秋叶绿
-              value: green
-            - label: 芒果橙
-              value: orange
-            - label: 哔哩哔哩 - 蓝
-              value: blue
-            - label: 哔哩哔哩 - 粉
-              value: pink
+        # - $formkit: text
+        #   name: description
+        #   label: 站点描述
+        #   value: "一个优雅、现代的个人导航站主题"
+        #   help: 设置站点的描述
+        # - $formkit: radio
+        #   name: color_style
+        #   id: color_style
+        #   label: 默认主题色
+        #   help: 选择预先精心设计的配色方案，或者设置你的颜色风格。
+        #   value: purple
+        #   options:
+        #     - label: 因蓝紫
+        #       value: purple
+        #     - label: 秋叶绿
+        #       value: green
+        #     - label: 芒果橙
+        #       value: orange
+        #     - label: 哔哩哔哩 - 蓝
+        #       value: blue
+        #     - label: 哔哩哔哩 - 粉
+        #       value: pink
     - group: categorie
       label: 分类设置
       formSchema:
