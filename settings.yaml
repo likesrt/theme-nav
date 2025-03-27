@@ -57,7 +57,6 @@ spec:
             - $formkit: text
               name: icon
               label: 分类图标
-              validation: required
 
     - group: bookmark
       label: 书签设置
@@ -89,7 +88,6 @@ spec:
             - $formkit: text
               name: icon
               label: 书签图标
-              validation: required
             - $formkit: text
               name: desc
               label: 书签描述
