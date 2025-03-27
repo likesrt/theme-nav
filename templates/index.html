@@ -33,12 +33,11 @@
     <button class="theme-switch" id="darkModeToggle" title="切换深色/浅色模式">
       <i class="fas fa-moon"></i>
     </button>
-    <!-- 管理页面按钮 新标签页打开 -->
-    <a href="/themes/theme-nav/assets/admin.html" target="_blank" class="theme-switch" id="adminPageBtn" title="管理页面"
-      style="display: none;">
+
+    <a sec:authorize="isAuthenticated()" href="/themes/theme-nav/assets/admin.html" target="_blank" class="theme-switch"
+      id="adminPageBtn" title="管理页面">
       <i class="fas fa-cog"></i>
     </a>
-
   </div>
 
 
