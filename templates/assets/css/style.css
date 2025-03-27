@@ -1,691 +1,713 @@
 :root {
-    /* 主题颜色变量 - 可在这里全局调整颜色 */
-    --primary-color: #4a6cf7;
-    --primary-light: #6b85f8;
-    --primary-dark: #3a56d7;
-    --secondary-color: #f7346b;
-    --surface-color: #ffffff;
-    --background-color: #f0f3f8;
-    --text-primary: #333333;
-    --text-secondary: #666666;
-    --text-tertiary: #999999;
-    --text-on-primary: #ffffff;
-    --shadow-color: rgba(0, 0, 0, 0.1);
-    --card-radius: 16px;
-    --item-radius: 12px;
-    --transition-time: 0.3s;
+  /* 主题颜色变量 - 可在这里全局调整颜色 */
+  --primary-color: #4a6cf7;
+  --primary-light: #6b85f8;
+  --primary-dark: #3a56d7;
+  --secondary-color: #f7346b;
+  --surface-color: #ffffff;
+  --background-color: #f0f3f8;
+  --text-primary: #333333;
+  --text-secondary: #666666;
+  --text-tertiary: #999999;
+  --text-on-primary: #ffffff;
+  --shadow-color: rgba(0, 0, 0, 0.1);
+  --card-radius: 16px;
+  --item-radius: 12px;
+  --transition-time: 0.3s;
 
-    /* 预设多种颜色模式 */
-    --color-1: #4a6cf7;
-    /* 蓝色 */
-    --color-2: #f7346b;
-    /* 粉色 */
-    --color-3: #38cb89;
-    /* 绿色 */
-    --color-4: #ffab2d;
-    /* 黄色 */
-    --color-5: #9c6ade;
-    /* 紫色 */
-    --color-6: #1ea896;
-    /* 青色 */
-    --color-7: #f86549;
-    /* 橙色 */
-    --color-8: #506690;
-    /* 蓝灰色 */
+  /* 预设多种颜色模式 */
+  --color-1: #4a6cf7;
+  /* 蓝色 */
+  --color-2: #f7346b;
+  /* 粉色 */
+  --color-3: #38cb89;
+  /* 绿色 */
+  --color-4: #ffab2d;
+  /* 黄色 */
+  --color-5: #9c6ade;
+  /* 紫色 */
+  --color-6: #1ea896;
+  /* 青色 */
+  --color-7: #f86549;
+  /* 橙色 */
+  --color-8: #506690;
+  /* 蓝灰色 */
+}
+
+/* 暗色模式变量 */
+.dark-mode {
+  --primary-color: #5d7bf9;
+  --primary-light: #7c8ffa;
+  --primary-dark: #4a64d9;
+  --secondary-color: #f7487d;
+  --surface-color: #2a2a3a;
+  --background-color: #1a1a2e;
+  --text-primary: #f0f0f0;
+  --text-secondary: #d0d0d0;
+  --text-tertiary: #a0a0a0;
+  --text-on-primary: #ffffff;
+  --shadow-color: rgba(0, 0, 0, 0.3);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Noto Sans SC', 'Microsoft YaHei', 'PingFang SC', sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--background-color);
+  color: var(--text-primary);
+  line-height: 1.6;
+  padding: 20px;
+  transition: background-color var(--transition-time), color var(--transition-time);
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+}
+
+/* 页面标题与欢迎信息 */
+header {
+  text-align: center;
+  margin-bottom: 30px;
+  padding: 30px 20px;
+  background: var(--surface-color);
+  border-radius: var(--card-radius);
+  box-shadow: 0 8px 30px var(--shadow-color);
+  position: relative;
+  overflow: hidden;
+  transition: all var(--transition-time);
+}
+
+/* 磨砂玻璃效果 */
+header::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.1));
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  z-index: -1;
+}
+
+.dark-mode header::before {
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.1));
+}
+
+.header-content {
+  position: relative;
+  z-index: 1;
+}
+
+h1 {
+  font-size: 28px;
+  color: var(--text-primary);
+  margin-bottom: 5px;
+  font-weight: 600;
+  transition: color var(--transition-time);
+  opacity: 0;
+  animation: fadeInUp 0.5s ease forwards;
+}
+
+.welcome-message {
+  color: var(--text-secondary);
+  font-size: 16px;
+  margin-bottom: 20px;
+  opacity: 0;
+  animation: fadeInUp 0.5s ease 0.2s forwards;
+}
+
+.date-time {
+  font-size: 14px;
+  color: var(--text-tertiary);
+  margin-bottom: 20px;
+  opacity: 0;
+  animation: fadeInUp 0.5s ease 0.3s forwards;
+}
+
+.search-box {
+  width: 80%;
+  max-width: 600px;
+  margin: 20px auto 0;
+  position: relative;
+  opacity: 0;
+  animation: fadeInUp 0.5s ease 0.4s forwards;
+}
+
+.search-box input {
+  width: 100%;
+  padding: 14px 20px;
+  padding-left: 45px;
+  border: 2px solid transparent;
+  border-radius: 30px;
+  font-size: 16px;
+  outline: none;
+  background-color: rgba(255, 255, 255, 0.9);
+  color: var(--text-primary);
+  transition: all var(--transition-time);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.dark-mode .search-box input {
+  background-color: rgba(0, 0, 0, 0.2);
+  color: var(--text-primary);
+}
+
+.search-box input:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 4px rgba(74, 108, 247, 0.15);
+}
+
+.search-icon {
+  position: absolute;
+  left: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-tertiary);
+  font-size: 18px;
+}
+
+.search-box button {
+  position: absolute;
+  right: 5px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: var(--primary-color);
+  border: none;
+  color: var(--text-on-primary);
+  padding: 9px 20px;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: all var(--transition-time);
+  font-weight: 500;
+}
+
+.search-box button:hover {
+  background: var(--primary-dark);
+  transform: translateY(calc(-50% - 2px));
+  box-shadow: 0 5px 15px rgba(74, 108, 247, 0.3);
+}
+
+/* 分类导航菜单 */
+.category-nav {
+  background: var(--surface-color);
+  border-radius: var(--card-radius);
+  padding: 15px;
+  margin-bottom: 25px;
+  box-shadow: 0 8px 30px var(--shadow-color);
+  position: sticky;
+  top: 20px;
+  z-index: 100;
+  transition: all var(--transition-time);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  opacity: 0;
+  animation: fadeInDown 0.5s ease 0.2s forwards;
+}
+
+.category-nav.scrolled {
+  padding: 10px;
+  box-shadow: 0 10px 30px var(--shadow-color);
+}
+
+.category-menu {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  list-style: none;
+  gap: 10px;
+}
+
+.category-menu li {
+  margin: 5px;
+}
+
+.category-menu a {
+  display: flex;
+  align-items: center;
+  padding: 10px 20px;
+  background: rgba(240, 243, 248, 0.7);
+  color: var(--text-primary);
+  text-decoration: none;
+  border-radius: 30px;
+  font-size: 15px;
+  transition: all var(--transition-time);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.dark-mode .category-menu a {
+  background: rgba(30, 30, 50, 0.7);
+}
+
+.category-menu a:hover {
+  background: var(--primary-light);
+  color: var(--text-on-primary);
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 5px 15px rgba(74, 108, 247, 0.3);
+}
+
+.category-menu a.active {
+  background: var(--primary-color);
+  color: var(--text-on-primary);
+  box-shadow: 0 5px 15px rgba(74, 108, 247, 0.3);
+}
+
+.category-menu .nav-icon {
+  margin-right: 8px;
+  font-size: 18px;
+}
+
+/* 书签部分 */
+.bookmark-section {
+  margin-bottom: 40px;
+  background: var(--surface-color);
+  border-radius: var(--card-radius);
+  padding: 25px;
+  box-shadow: 0 8px 30px var(--shadow-color);
+  scroll-margin-top: 120px;
+  /* 给锚点导航留出空间 */
+  position: relative;
+  transition: all var(--transition-time);
+  opacity: 0;
+  animation: fadeIn 0.5s ease forwards;
+  animation-delay: calc(0.1s * var(--section-index, 0));
+}
+
+/* 磨砂玻璃背景 */
+.bookmark-section::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.1));
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: var(--card-radius);
+  z-index: -1;
+}
+
+.dark-mode .bookmark-section::before {
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.1));
+}
+
+.section-title {
+  font-size: 22px;
+  margin-bottom: 25px;
+  display: flex;
+  align-items: center;
+  position: relative;
+  padding-bottom: 15px;
+}
+
+.section-title::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 50px;
+  height: 3px;
+  background: var(--primary-color);
+  border-radius: 10px;
+  transition: width 0.3s ease;
+}
+
+.bookmark-section:hover .section-title::after {
+  width: 100px;
+}
+
+.section-icon {
+  margin-right: 12px;
+  font-size: 28px;
+}
+
+.bookmark-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 20px;
+}
+
+.bookmark-item {
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: var(--item-radius);
+  padding: 18px;
+  transition: all var(--transition-time);
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: var(--text-primary);
+  border: 1px solid rgba(240, 240, 240, 0.8);
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+}
+
+.dark-mode .bookmark-item {
+  background: rgba(50, 50, 70, 0.5);
+  border: 1px solid rgba(60, 60, 80, 0.8);
+}
+
+.bookmark-item::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
+  z-index: 0;
+}
+
+.bookmark-item:hover {
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+  border-color: var(--primary-light);
+  background: rgba(255, 255, 255, 0.8);
+  z-index: 1;
+}
+
+.dark-mode .bookmark-item:hover {
+  background: rgba(60, 60, 90, 0.8);
+}
+
+/* 点击波纹效果 */
+.bookmark-item .ripple {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.5);
+  transform: scale(0);
+  animation: ripple 0.6s linear;
+  pointer-events: none;
+}
+
+@keyframes ripple {
+  to {
+    transform: scale(4);
+    opacity: 0;
+  }
+}
+
+.bookmark-icon {
+  width: 40px;
+  height: 40px;
+  min-width: 40px;
+  margin-right: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  font-size: 18px;
+  color: white;
+  overflow: hidden;
+  position: relative;
+  z-index: 1;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: all var(--transition-time);
+}
+
+.bookmark-item:hover .bookmark-icon {
+  transform: scale(1.1) rotate(-5deg);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.bookmark-info {
+  flex: 1;
+  position: relative;
+  z-index: 1;
+}
+
+.bookmark-name {
+  font-weight: 600;
+  font-size: 16px;
+  margin-bottom: 5px;
+  transition: color var(--transition-time);
+}
+
+.bookmark-item:hover .bookmark-name {
+  color: var(--primary-color);
+}
+
+.bookmark-desc {
+  font-size: 13px;
+  color: var(--text-tertiary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  transition: color var(--transition-time);
+}
+
+.bookmark-item:hover .bookmark-desc {
+  color: var(--text-secondary);
+}
+
+/* 移动端菜单收起按钮 */
+.toggle-nav {
+  display: none;
+  width: 100%;
+  padding: 12px;
+  text-align: center;
+  background: var(--primary-color);
+  color: var(--text-on-primary);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-bottom: 15px;
+  font-size: 16px;
+  font-weight: 500;
+  transition: all var(--transition-time);
+}
+
+
+.toggle-nav:hover {
+  background: var(--primary-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(74, 108, 247, 0.3);
+}
+
+footer {
+  text-align: center;
+  margin-top: 40px;
+  padding: 25px 0;
+  color: var(--text-tertiary);
+  font-size: 14px;
+  opacity: 0;
+  animation: fadeIn 0.5s ease 1s forwards;
+}
+
+/* 开关控件 */
+.theme-controls {
+  position: fixed;
+  right: 20px;
+  top: 20px;
+  z-index: 200;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.theme-switch {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  background: var(--surface-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 15px var(--shadow-color);
+  transition: all var(--transition-time);
+  color: var(--text-primary);
+  border: none;
+  font-size: 18px;
+}
+
+.theme-switch:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 20px var(--shadow-color);
+}
+
+/* 返回顶部按钮 */
+.back-to-top {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 45px;
+  height: 45px;
+  background: var(--primary-color);
+  color: var(--text-on-primary);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  font-size: 20px;
+  box-shadow: 0 4px 15px rgba(74, 108, 247, 0.3);
+  opacity: 0;
+  visibility: hidden;
+  transition: all var(--transition-time);
+  border: none;
+  cursor: pointer;
+  z-index: 100;
+}
+
+.back-to-top.visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+.back-to-top:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(74, 108, 247, 0.4);
+}
+
+/* 主题颜色 */
+.color-1 {
+  background-color: var(--color-1);
+}
+
+.color-2 {
+  background-color: var(--color-2);
+}
+
+.color-3 {
+  background-color: var(--color-3);
+}
+
+.color-4 {
+  background-color: var(--color-4);
+}
+
+.color-5 {
+  background-color: var(--color-5);
+}
+
+.color-6 {
+  background-color: var(--color-6);
+}
+
+.color-7 {
+  background-color: var(--color-7);
+}
+
+.color-8 {
+  background-color: var(--color-8);
+}
+
+/* 网站图标图片样式 */
+.favicon-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 8px;
+  background-color: white;
+  /* 为透明图标提供背景 */
+  padding: 2px;
+  /* 增加内边距，避免边缘被裁剪 */
+}
+
+/* 动画效果 */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
   }
 
-  /* 暗色模式变量 */
-  .dark-mode {
-    --primary-color: #5d7bf9;
-    --primary-light: #7c8ffa;
-    --primary-dark: #4a64d9;
-    --secondary-color: #f7487d;
-    --surface-color: #2a2a3a;
-    --background-color: #1a1a2e;
-    --text-primary: #f0f0f0;
-    --text-secondary: #d0d0d0;
-    --text-tertiary: #a0a0a0;
-    --text-on-primary: #ffffff;
-    --shadow-color: rgba(0, 0, 0, 0.3);
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
   }
 
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Noto Sans SC', 'Microsoft YaHei', 'PingFang SC', sans-serif;
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
   }
 
-  html {
-    scroll-behavior: smooth;
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
+}
 
+/* 响应式设计 */
+@media (max-width: 768px) {
   body {
-    background-color: var(--background-color);
-    color: var(--text-primary);
-    line-height: 1.6;
-    padding: 20px;
-    transition: background-color var(--transition-time), color var(--transition-time);
-  }
-
-  .container {
-    max-width: 1200px;
-    margin: 0 auto;
-    position: relative;
-  }
-
-  /* 页面标题与欢迎信息 */
-  header {
-    text-align: center;
-    margin-bottom: 30px;
-    padding: 30px 20px;
-    background: var(--surface-color);
-    border-radius: var(--card-radius);
-    box-shadow: 0 8px 30px var(--shadow-color);
-    position: relative;
-    overflow: hidden;
-    transition: all var(--transition-time);
-  }
-
-  /* 磨砂玻璃效果 */
-  header::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.1));
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    z-index: -1;
-  }
-
-  .dark-mode header::before {
-    background: linear-gradient(135deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.1));
-  }
-
-  .header-content {
-    position: relative;
-    z-index: 1;
+    padding: 15px;
   }
 
   h1 {
-    font-size: 28px;
-    color: var(--text-primary);
-    margin-bottom: 5px;
-    font-weight: 600;
-    transition: color var(--transition-time);
-    opacity: 0;
-    animation: fadeInUp 0.5s ease forwards;
-  }
-
-  .welcome-message {
-    color: var(--text-secondary);
-    font-size: 16px;
-    margin-bottom: 20px;
-    opacity: 0;
-    animation: fadeInUp 0.5s ease 0.2s forwards;
-  }
-
-  .date-time {
-    font-size: 14px;
-    color: var(--text-tertiary);
-    margin-bottom: 20px;
-    opacity: 0;
-    animation: fadeInUp 0.5s ease 0.3s forwards;
-  }
-
-  .search-box {
-    width: 80%;
-    max-width: 600px;
-    margin: 20px auto 0;
-    position: relative;
-    opacity: 0;
-    animation: fadeInUp 0.5s ease 0.4s forwards;
-  }
-
-  .search-box input {
-    width: 100%;
-    padding: 14px 20px;
-    padding-left: 45px;
-    border: 2px solid transparent;
-    border-radius: 30px;
-    font-size: 16px;
-    outline: none;
-    background-color: rgba(255, 255, 255, 0.9);
-    color: var(--text-primary);
-    transition: all var(--transition-time);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-  }
-
-  .dark-mode .search-box input {
-    background-color: rgba(0, 0, 0, 0.2);
-    color: var(--text-primary);
-  }
-
-  .search-box input:focus {
-    border-color: var(--primary-color);
-    box-shadow: 0 0 0 4px rgba(74, 108, 247, 0.15);
-  }
-
-  .search-icon {
-    position: absolute;
-    left: 15px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: var(--text-tertiary);
-    font-size: 18px;
-  }
-
-  .search-box button {
-    position: absolute;
-    right: 5px;
-    top: 50%;
-    transform: translateY(-50%);
-    background: var(--primary-color);
-    border: none;
-    color: var(--text-on-primary);
-    padding: 9px 20px;
-    border-radius: 30px;
-    cursor: pointer;
-    transition: all var(--transition-time);
-    font-weight: 500;
-  }
-
-  .search-box button:hover {
-    background: var(--primary-dark);
-    transform: translateY(calc(-50% - 2px));
-    box-shadow: 0 5px 15px rgba(74, 108, 247, 0.3);
-  }
-
-  /* 分类导航菜单 */
-  .category-nav {
-    background: var(--surface-color);
-    border-radius: var(--card-radius);
-    padding: 15px;
-    margin-bottom: 25px;
-    box-shadow: 0 8px 30px var(--shadow-color);
-    position: sticky;
-    top: 20px;
-    z-index: 100;
-    transition: all var(--transition-time);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    opacity: 0;
-    animation: fadeInDown 0.5s ease 0.2s forwards;
-  }
-
-  .category-nav.scrolled {
-    padding: 10px;
-    box-shadow: 0 10px 30px var(--shadow-color);
-  }
-
-  .category-menu {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    list-style: none;
-    gap: 10px;
-  }
-
-  .category-menu li {
-    margin: 5px;
-  }
-
-  .category-menu a {
-    display: flex;
-    align-items: center;
-    padding: 10px 20px;
-    background: rgba(240, 243, 248, 0.7);
-    color: var(--text-primary);
-    text-decoration: none;
-    border-radius: 30px;
-    font-size: 15px;
-    transition: all var(--transition-time);
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-  }
-
-  .dark-mode .category-menu a {
-    background: rgba(30, 30, 50, 0.7);
-  }
-
-  .category-menu a:hover {
-    background: var(--primary-light);
-    color: var(--text-on-primary);
-    transform: translateY(-2px) scale(1.05);
-    box-shadow: 0 5px 15px rgba(74, 108, 247, 0.3);
-  }
-
-  .category-menu a.active {
-    background: var(--primary-color);
-    color: var(--text-on-primary);
-    box-shadow: 0 5px 15px rgba(74, 108, 247, 0.3);
-  }
-
-  .category-menu .nav-icon {
-    margin-right: 8px;
-    font-size: 18px;
-  }
-
-  /* 书签部分 */
-  .bookmark-section {
-    margin-bottom: 40px;
-    background: var(--surface-color);
-    border-radius: var(--card-radius);
-    padding: 25px;
-    box-shadow: 0 8px 30px var(--shadow-color);
-    scroll-margin-top: 120px;
-    /* 给锚点导航留出空间 */
-    position: relative;
-    transition: all var(--transition-time);
-    opacity: 0;
-    animation: fadeIn 0.5s ease forwards;
-    animation-delay: calc(0.1s * var(--section-index, 0));
-  }
-
-  /* 磨砂玻璃背景 */
-  .bookmark-section::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.1));
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border-radius: var(--card-radius);
-    z-index: -1;
-  }
-
-  .dark-mode .bookmark-section::before {
-    background: linear-gradient(135deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.1));
-  }
-
-  .section-title {
-    font-size: 22px;
-    margin-bottom: 25px;
-    display: flex;
-    align-items: center;
-    position: relative;
-    padding-bottom: 15px;
-  }
-
-  .section-title::after {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 50px;
-    height: 3px;
-    background: var(--primary-color);
-    border-radius: 10px;
-    transition: width 0.3s ease;
-  }
-
-  .bookmark-section:hover .section-title::after {
-    width: 100px;
-  }
-
-  .section-icon {
-    margin-right: 12px;
-    font-size: 28px;
+    font-size: 24px;
   }
 
   .bookmark-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
-    gap: 20px;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 15px;
+  }
+
+  .search-box {
+    width: 95%;
+  }
+
+  .category-menu {
+    flex-direction: column;
+    display: none;
+  }
+
+  .category-menu.expanded {
+    display: flex;
+  }
+
+  .toggle-nav {
+    display: block;
+  }
+
+  .category-nav {
+    padding: 10px;
+  }
+
+  .bookmark-section {
+    padding: 20px 15px;
   }
 
   .bookmark-item {
-    background: rgba(255, 255, 255, 0.5);
-    border-radius: var(--item-radius);
-    padding: 18px;
-    transition: all var(--transition-time);
-    display: flex;
-    align-items: center;
-    text-decoration: none;
-    color: var(--text-primary);
-    border: 1px solid rgba(240, 240, 240, 0.8);
-    position: relative;
+    padding: 15px;
+  }
+
+  /* 为图标URL添加特殊处理 */
+  .bookmark-icon[data-is-url="true"] {
+    background-color: white !important;
+    /* 覆盖默认的颜色背景 */
+    color: transparent;
+    /* 隐藏文本内容 */
     overflow: hidden;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
-  }
-
-  .dark-mode .bookmark-item {
-    background: rgba(50, 50, 70, 0.5);
-    border: 1px solid rgba(60, 60, 80, 0.8);
-  }
-
-  .bookmark-item::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
-    z-index: 0;
-  }
-
-  .bookmark-item:hover {
-    transform: translateY(-6px) scale(1.02);
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
-    border-color: var(--primary-light);
-    background: rgba(255, 255, 255, 0.8);
-    z-index: 1;
-  }
-
-  .dark-mode .bookmark-item:hover {
-    background: rgba(60, 60, 90, 0.8);
-  }
-
-  /* 点击波纹效果 */
-  .bookmark-item .ripple {
-    position: absolute;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.5);
-    transform: scale(0);
-    animation: ripple 0.6s linear;
-    pointer-events: none;
-  }
-
-  @keyframes ripple {
-    to {
-      transform: scale(4);
-      opacity: 0;
-    }
-  }
-
-  .bookmark-icon {
-    width: 40px;
-    height: 40px;
-    min-width: 40px;
-    margin-right: 12px;
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 12px;
-    font-size: 18px;
-    color: white;
-    overflow: hidden;
-    position: relative;
-    z-index: 1;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: all var(--transition-time);
   }
+}
 
-  .bookmark-item:hover .bookmark-icon {
-    transform: scale(1.1) rotate(-5deg);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-  }
+/* 
+   * Upyun 图片 尺寸优化
+   */
+.upyun img {
+  width: 55px;
+  height: auto;
+  vertical-align: middle;
+  margin-left: 5px;
+  margin-right: 5px;
+}
 
-  .bookmark-info {
-    flex: 1;
-    position: relative;
-    z-index: 1;
-  }
+/* 移除超链接的默认样式 */
+a {
+  color: inherit;
+  text-decoration: none;
+}
 
-  .bookmark-name {
-    font-weight: 600;
-    font-size: 16px;
-    margin-bottom: 5px;
-    transition: color var(--transition-time);
-  }
-
-  .bookmark-item:hover .bookmark-name {
-    color: var(--primary-color);
-  }
-
-  .bookmark-desc {
-    font-size: 13px;
-    color: var(--text-tertiary);
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    transition: color var(--transition-time);
-  }
-
-  .bookmark-item:hover .bookmark-desc {
-    color: var(--text-secondary);
-  }
-
-  /* 移动端菜单收起按钮 */
-  .toggle-nav {
-    display: none;
-    width: 100%;
-    padding: 12px;
-    text-align: center;
-    background: var(--primary-color);
-    color: var(--text-on-primary);
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    margin-bottom: 15px;
-    font-size: 16px;
-    font-weight: 500;
-    transition: all var(--transition-time);
-  }
-
-
-  .toggle-nav:hover {
-    background: var(--primary-dark);
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(74, 108, 247, 0.3);
-  }
-
-  footer {
-    text-align: center;
-    margin-top: 40px;
-    padding: 25px 0;
-    color: var(--text-tertiary);
-    font-size: 14px;
-    opacity: 0;
-    animation: fadeIn 0.5s ease 1s forwards;
-  }
-
-  /* 开关控件 */
-  .theme-controls {
-    position: fixed;
-    right: 20px;
-    top: 20px;
-    z-index: 200;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-  }
-
-  .theme-switch {
-    width: 45px;
-    height: 45px;
-    border-radius: 50%;
-    background: var(--surface-color);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    box-shadow: 0 4px 15px var(--shadow-color);
-    transition: all var(--transition-time);
-    color: var(--text-primary);
-    border: none;
-    font-size: 18px;
-  }
-
-  .theme-switch:hover {
-    transform: scale(1.1);
-    box-shadow: 0 6px 20px var(--shadow-color);
-  }
-
-  /* 返回顶部按钮 */
-  .back-to-top {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    width: 45px;
-    height: 45px;
-    background: var(--primary-color);
-    color: var(--text-on-primary);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-decoration: none;
-    font-size: 20px;
-    box-shadow: 0 4px 15px rgba(74, 108, 247, 0.3);
-    opacity: 0;
-    visibility: hidden;
-    transition: all var(--transition-time);
-    border: none;
-    cursor: pointer;
-    z-index: 100;
-  }
-
-  .back-to-top.visible {
-    opacity: 1;
-    visibility: visible;
-  }
-
-  .back-to-top:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 25px rgba(74, 108, 247, 0.4);
-  }
-
-  /* 主题颜色 */
-  .color-1 {
-    background-color: var(--color-1);
-  }
-
-  .color-2 {
-    background-color: var(--color-2);
-  }
-
-  .color-3 {
-    background-color: var(--color-3);
-  }
-
-  .color-4 {
-    background-color: var(--color-4);
-  }
-
-  .color-5 {
-    background-color: var(--color-5);
-  }
-
-  .color-6 {
-    background-color: var(--color-6);
-  }
-
-  .color-7 {
-    background-color: var(--color-7);
-  }
-
-  .color-8 {
-    background-color: var(--color-8);
-  }
-
-  /* 网站图标图片样式 */
-  .favicon-img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    border-radius: 8px;
-    background-color: white;
-    /* 为透明图标提供背景 */
-    padding: 2px;
-    /* 增加内边距，避免边缘被裁剪 */
-  }
-
-  /* 动画效果 */
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-    }
-
-    to {
-      opacity: 1;
-    }
-  }
-
-  @keyframes fadeInUp {
-    from {
-      opacity: 0;
-      transform: translateY(20px);
-    }
-
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  @keyframes fadeInDown {
-    from {
-      opacity: 0;
-      transform: translateY(-20px);
-    }
-
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  /* 响应式设计 */
-  @media (max-width: 768px) {
-    body {
-      padding: 15px;
-    }
-
-    h1 {
-      font-size: 24px;
-    }
-
-    .bookmark-grid {
-      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-      gap: 15px;
-    }
-
-    .search-box {
-      width: 95%;
-    }
-
-    .category-menu {
-      flex-direction: column;
-      display: none;
-    }
-
-    .category-menu.expanded {
-      display: flex;
-    }
-
-    .toggle-nav {
-      display: block;
-    }
-
-    .category-nav {
-      padding: 10px;
-    }
-
-    .bookmark-section {
-      padding: 20px 15px;
-    }
-
-    .bookmark-item {
-      padding: 15px;
-    }
-
-    /* 为图标URL添加特殊处理 */
-    .bookmark-icon[data-is-url="true"] {
-      background-color: white !important;
-      /* 覆盖默认的颜色背景 */
-      color: transparent;
-      /* 隐藏文本内容 */
-      overflow: hidden;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-  }
+/* 鼠标悬停时的样式 */
+a:hover {
+  color: #0056b3;
+}

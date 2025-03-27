@@ -1,16 +1,28 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh-CN" th:fragment="layout(_title,_content,_head)" data-theme-mode xmlns:th="http://www.thymeleaf.org"
+  th:with="site_title = ${not #strings.isEmpty(_title) ?  _title+' - '+site.title  :  #strings.isEmpty(site.subtitle) ? site.title :  site.title +' - ' +site.subtitle }">
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{{if .SiteTitle}}{{.SiteTitle}}{{else}}E-Nav{{end}}</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="renderer" content="webkit">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport"
+    content="width=device-width,height=device-height,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+
+  <link rel="shortcut icon"
+    th:href="${#strings.isEmpty(theme.config.general.icoPath) ? site.favicon : theme.config.general.icoPath}"
+    type="image/x-icon" />
+  <title th:text="${#strings.defaultString(site.title, 'Halo')}"></title>
+
 
   <!-- 引入字体图标库 -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <!-- 引入谷歌字体 -->
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
-  
+  <!-- 使用 Halo 的静态资源引用方式 -->
+  <link rel="stylesheet" th:href="@{/assets/css/style.css?v={version}(version=${theme.spec.version})}" />
+  <script th:src="@{/assets/js/main.js?v={version}(version=${theme.spec.version})}"></script>
 
 </head>
 
@@ -25,7 +37,8 @@
   <div class="container">
     <header>
       <div class="header-content">
-        <h1>{{if .SiteTitle}}{{.SiteTitle}}{{else}}E-Nav{{end}}</h1>
+        <h1 th:utext="${not #strings.isEmpty(theme.config.general.tittle) ? theme.config.general.tittle : site.title}">
+        </h1>
         <p class="welcome-message" id="welcomeMessage">欢迎回来，祝您使用愉快！</p>
         <p class="date-time" id="dateTime"></p>
         <div class="search-box">
@@ -40,17 +53,93 @@
     <nav class="category-nav" id="categoryNav">
       <button class="toggle-nav" id="toggleNav">显示分类菜单 <i class="fas fa-chevron-down"></i></button>
       <ul class="category-menu" id="categoryMenu">
-        <!-- 分类菜单项将通过JS动态生成 -->
+        <!-- 从主题配置中获取菜单 -->
+        <li th:each="category, catStat : ${theme.config.categorie.categories}" class="menu-item fade-in-item"
+          th:data-index="${catStat.index}">
+          <a href="#" th:href="'#cat-' + ${#strings.toLowerCase(#strings.replace(category.name, ' ', '-'))}"
+            class="category-link">
+            <span class="nav-icon" th:utext="${category.icon}"></span>
+            <span th:text="${category.name}"></span>
+          </a>
+        </li>
       </ul>
     </nav>
 
+
+    <!-- 书签区块 -->
     <div id="bookmarkContainer">
-      <!-- 书签内容将通过JS动态生成 -->
+      <!-- 为每个分类创建一个区块 -->
+      <div th:each="category, catStat : ${theme.config.categorie.categories}" class="bookmark-section"
+        th:id="'cat-' + ${#strings.toLowerCase(#strings.replace(category.name, ' ', '-'))}"
+        th:style="'--section-index: ' + (catStat.index + 1)">
+
+        <h2 class="section-title">
+          <span class="section-icon" th:utext="${category.icon}"></span>
+          <span th:text="${category.name}"></span>
+        </h2>
+
+        <div class="bookmark-grid">
+          <!-- 为每个链接创建一个书签 -->
+          <a th:each="link, linkStat : ${category.links}" th:href="${link.url}" class="bookmark-item" target="_blank">
+
+            <!-- 图标处理 -->
+            <div class="bookmark-icon"
+              th:classappend="${T(com.yourapp.utils.UrlUtils).getColorForUrl(link.url, linkStat.index)}"
+              th:data-has-user-icon="${link.icon != null && link.icon != ''}">
+
+              <!-- 图标内容处理 -->
+              <img th:if="${link.icon != null && link.icon.startsWith('http')}" th:src="${link.icon}" alt="icon"
+                class="favicon-img">
+
+              <th:block th:if="${link.icon != null && !link.icon.startsWith('http')}" th:utext="${link.icon}">
+              </th:block>
+
+              <th:block th:if="${link.icon == null || link.icon == ''}"
+                th:text="${#strings.substring(link.name, 0, 1)}">
+              </th:block>
+            </div>
+
+            <div class="bookmark-info">
+              <div class="bookmark-name" th:text="${link.name}"></div>
+              <div class="bookmark-desc" th:text="${link.desc != null ? link.desc : ''}"></div>
+            </div>
+          </a>
+        </div>
+      </div>
     </div>
 
-    <footer>
-      <p>© 2025 <a href="https://github.com/ecouus/E-Nav" target="_blank">E-Nav</a> · {{if
-        .SiteFooter}}{{.SiteFooter}}{{else}}一个简洁易用的网址导航页 · 版权所有{{end}}</p>
+
+    <footer id="footer" role="contentinfo">
+      <section>
+        <!-- 版权信息 -->
+        <div class="copyright">
+          &copy; [[${#dates.format(new java.util.Date(), 'yyyy')}]] <a href="/"
+            th:text="${not #strings.isEmpty(theme.config.general.tittle) ? theme.config.general.tittle : site.title}"></a>.
+        </div>
+        <div class="powered">
+          Powered by <a href="//halo.run/" target="_blank">Halo</a>, Theme by <a
+            href="//github.com/likesrt/theme-nav">Nav</a>.
+        </div>
+
+        <!-- 又拍云图标 -->
+        <div class="upyun" th:if="${theme.config.footer.upyun}">
+          本网站由<a href="//www.upyun.com/?utm_source=lianmeng&utm_medium=referral" target="_blank"><img
+              th:src="@{/assets/images/upyun.png}" alt="又拍云"></a>提供CDN加速/云存储服务
+        </div>
+        <!-- 备案信息 -->
+        <div class="icp">
+          <a th:if="${not #strings.isEmpty(theme.config.footer.icp)}" href="//beian.miit.gov.cn" target="_blank"
+            th:text="${theme.config.footer.icp}"></a>
+
+          <a th:if="${not #strings.isEmpty(theme.config.footer.icp_gov)}" href="//beian.mps.gov.cn/#/query/webSearch"
+            target="_blank">
+            <img th:src="@{/assets/images/icp_gov.png}"
+              style="vertical-align: middle; margin-right: 1px; margin-left: 10px; width: 16px;" alt="备案图标">
+            <span th:text="${theme.config.footer.icp_gov}"></span>
+          </a>
+        </div>
+      </section>
+      <halo:footer />
     </footer>
   </div>
 

@@ -4,10 +4,116 @@ metadata:
   name: theme-nav-setting
 spec:
   forms:
-    - group: style
-      label: 样式
+    - group: general
+      label: 常规设置
       formSchema:
-        - $formkit: color
-          name: background_color
-          label: 背景颜色
-          value: "#f2f2f2"
+        - $formkit: text
+          name: tittle
+          label: 站点标题
+          value: "Nav"
+          help: 设置站点的标题
+        - $formkit: text
+          name: description
+          label: 站点描述
+          value: "一个优雅、现代的个人导航站主题"
+          help: 设置站点的描述
+        - $formkit: radio
+          name: color_style
+          id: color_style
+          label: 默认主题色
+          help: 选择预先精心设计的配色方案，或者设置你的颜色风格。
+          value: purple
+          options:
+            - label: 因蓝紫
+              value: purple
+            - label: 秋叶绿
+              value: green
+            - label: 芒果橙
+              value: orange
+            - label: 哔哩哔哩 - 蓝
+              value: blue
+            - label: 哔哩哔哩 - 粉
+              value: pink
+    - group: categorie
+      label: 分类设置
+      formSchema:
+        - $formkit: repeater
+          name: categories
+          label: 分类管理
+          value:
+            - name: "常用网站"
+              icon: "🔥"
+          children:
+            - $formkit: text
+              name: name
+              label: 分类名称
+              validation: required
+            - $formkit: text
+              name: icon
+              label: 分类图标
+              validation: required
+
+    - group: bookmark
+      label: 书签设置
+      formSchema:
+        - $formkit: repeater
+          name: bookmarks
+
+          label: 书签管理
+          value:
+            - name: "GitHub"
+              url: "https://github.com"
+              icon: "🔥"
+              desc: "GitHub是一个面向开源及私有软件项目的托管平台，让你和世界分享你的软件代码，从而提高软件开发效率、节省时间、节约资源。"
+              category: 
+          children:
+            - $formkit: text
+              name: name
+              label: 书签名称
+              categorie: 分类名称
+              validation: required
+            - $formkit: url
+              name: url
+              label: 书签地址
+              validation: required
+            - $formkit: text
+              name: icon
+              label: 书签图标
+              validation: required
+            - $formkit: text
+              name: desc
+              label: 书签描述
+              validation: required
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    - group: footer
+      label: 页脚设置
+      formSchema:
+        - $formkit: text
+          name: icp
+          label: ICP备案号
+          help: 页脚显示ICP备案号
+        - $formkit: text
+          name: icp_gov
+          label: 公网安备号
+          help: 页脚显示公网安备号
+        - $formkit: checkbox
+          name: upyun
+          label: 又拍云联盟
+          value: false
+          help: 开启后页脚显示又拍云联盟链接

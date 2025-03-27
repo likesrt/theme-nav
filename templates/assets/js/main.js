@@ -7,8 +7,6 @@
       updateDateTime();
       setInterval(updateDateTime, 1000);
 
-      // 加载书签数据
-      loadBookmarks();
 
       // 搜索功能
       const searchInput = document.getElementById('searchInput');
@@ -67,24 +65,6 @@
       checkSavedTheme();
     });
 
-    // 从后端API加载书签数据
-    function loadBookmarks() {
-      fetch('/api/bookmarks')
-        .then(response => response.json())
-        .then(data => {
-          // 渲染分类菜单
-          renderCategoryMenu(data);
-
-          // 渲染书签
-          renderBookmarks(data);
-
-          // 初始化导航高亮
-          updateActiveCategory();
-        })
-        .catch(error => {
-          console.error('加载书签数据失败:', error);
-        });
-    }
 
     // 更新欢迎消息
     function updateWelcomeMessage() {
