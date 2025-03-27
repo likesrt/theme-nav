@@ -19,9 +19,3 @@ spec:
   license:
     - name: "MIT"
       url: "https://github.com/likesrt/theme-nav/blob/main/LICENSE"
-  customTemplates:
-    page:
-      - name: 书签管理
-        description: 书签管理
-        screenshot:
-        file: admin.html

@@ -37,9 +37,15 @@ spec:
     - group: categorie
       label: 分类设置
       formSchema:
+        - $formkit: text
+          name: category_tip
+          label: 提示
+          value: "建议通过前端页面管理书签和分类"
+          disabled: true
         - $formkit: repeater
           name: categories
           label: 分类管理
+          id: categories
           value:
             - name: "常用网站"
               icon: "🔥"
@@ -56,21 +62,25 @@ spec:
     - group: bookmark
       label: 书签设置
       formSchema:
+        - $formkit: text
+          name: bookmark_tip
+          label: 提示
+          value: "建议通过前端页面管理书签和分类"
+          disabled: true
         - $formkit: repeater
           name: bookmarks
-
           label: 书签管理
+          id: bookmarks
           value:
             - name: "GitHub"
               url: "https://github.com"
               icon: "🔥"
               desc: "GitHub是一个面向开源及私有软件项目的托管平台，让你和世界分享你的软件代码，从而提高软件开发效率、节省时间、节约资源。"
-              category: 
+              category: "常用网站"
           children:
             - $formkit: text
               name: name
               label: 书签名称
-              categorie: 分类名称
               validation: required
             - $formkit: url
               name: url
@@ -84,22 +94,11 @@ spec:
               name: desc
               label: 书签描述
               validation: required
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+            - $formkit: text
+              name: category
+              label: 书签分类
+              validation: required
+              help: "请输入在分类设置中已添加的分类名称"
 
     - group: footer
       label: 页脚设置
