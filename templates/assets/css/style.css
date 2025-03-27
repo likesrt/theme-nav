@@ -416,7 +416,17 @@ h1 {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   transition: all var(--transition-time);
 }
+.bookmark-icon {
+  /* 现有的样式 */
+  color: var(--text-on-primary);
+  background-color: var(--primary-color);
+}
 
+/* 添加这个新的选择器 */
+body:not(.dark-mode) .bookmark-icon:not([data-has-user-icon="true"]) {
+  color: var(--text-primary);
+  background-color: var(--surface-color);
+}
 .bookmark-item:hover .bookmark-icon {
   transform: scale(1.1) rotate(-5deg);
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
